@@ -25,7 +25,6 @@ public class Calculator {
 		powerRes = Math.pow(base, exp);
 		return powerRes;
 	}
-	
 
 	public String getResults() {
 		String line1 = new String("1. The area of a circle with radius " + RADIUS + " is " + getArea(RADIUS));
