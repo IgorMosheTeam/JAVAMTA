@@ -1,14 +1,21 @@
 package com.myorg.javacourse;
 
+import java.util.*;
+import java.text.*;
+import java.lang.Object;
+
+@SuppressWarnings("unused")
 public class Stock {
 	
 	private String symbol;
 	private float ask;
 	private float bid;
-	private java.util.Date date;
+	private String inputDate;
+	private Date outputDate;
 	
 	public Stock() {
-		date = new java.util.Date(); 
+		inputDate = null;
+		outputDate = new Date(); 
 	}
 	
 	public String getSymbol() {
@@ -36,13 +43,18 @@ public class Stock {
 	}
 	
 
-	public java.util.Date getDate() {
-		return date;
+	public Date getDate() {
+		return outputDate;
 	}
-	
 
-	public void setDate(java.util.Date date) {
-		this.date = date;
+	public void setDate(String inputDate) {
+		SimpleDateFormat formatedDate = new SimpleDateFormat("MM/dd/yyyy");
+		try {
+		    	this.outputDate = formatedDate.parse(inputDate);
+		    } catch (ParseException e) {
+		      // TODO Auto-generated catch block
+		      e.printStackTrace();
+		    }
 	}
 	
 	public String getHtmlDescription()
