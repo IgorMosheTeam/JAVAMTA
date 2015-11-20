@@ -59,7 +59,8 @@ public class Stock {
 	
 	public String getHtmlDescription()
 	{
-		String stockDetails = new String("<b>Stock symbol</b>: " + getSymbol() + ", <b>ask</b>: " + getAsk() + ", <b>bid</b>: " + getBid() + ", <b>date</b>: " + getDate());
+		@SuppressWarnings("deprecation")
+		String stockDetails = new String("<b>Stock symbol</b>: " + getSymbol() + ", <b>ask</b>: " + getAsk() + ", <b>bid</b>: " + getBid() + ", <b>date</b>: " + outputDate.getMonth() + "/" + outputDate.getDate() + "/" + outputDate.getYear());
 
 		return stockDetails;
 	}
