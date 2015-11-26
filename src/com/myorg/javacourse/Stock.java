@@ -12,10 +12,12 @@ public class Stock {
 	private float bid;
 	private String inputDate;
 	private Date outputDate;
+	private Calendar cal;
 	
 	public Stock() {
 		inputDate = null;
 		outputDate = new Date(); 
+		cal = Calendar.getInstance();
 	}
 	
 	public String getSymbol() {
@@ -47,7 +49,7 @@ public class Stock {
 		return outputDate;
 	}
 
-	public void setDate(String inputDate) {
+	public void setDate(String inputDate) {		
 		SimpleDateFormat formatedDate = new SimpleDateFormat("MM/dd/yyyy");
 		try {
 		    	this.outputDate = formatedDate.parse(inputDate);
@@ -55,12 +57,17 @@ public class Stock {
 		      // TODO Auto-generated catch block
 		      e.printStackTrace();
 		    }
+		cal.setTime(outputDate);
+	}
+	
+	public String getFormattedDate(Date outputDate) {
+		SimpleDateFormat formatedCal = new SimpleDateFormat("MM/dd/yyyy");
+		return formatedCal.format(cal.getTime());
 	}
 	
 	public String getHtmlDescription()
 	{
-		@SuppressWarnings("deprecation")
-		String stockDetails = new String("<b>Stock symbol</b>: " + getSymbol() + ", <b>ask</b>: " + getAsk() + ", <b>bid</b>: " + getBid() + ", <b>date</b>: " + outputDate.getMonth() + "/" + outputDate.getDate() + "/" + outputDate.getYear());
+		String stockDetails = new String("<b>Stock symbol</b>: " + getSymbol() + ", <b>ask</b>: " + getAsk() + ", <b>bid</b>: " + getBid() + ", <b>date</b>: " + getFormattedDate(outputDate));
 
 		return stockDetails;
 	}
