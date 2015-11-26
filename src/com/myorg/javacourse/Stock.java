@@ -13,6 +13,12 @@ public class Stock {
 	private String inputDate;
 	private Date outputDate;
 	private Calendar cal;
+	private int recommendation;
+	private int stockQuantity;
+	private final static int BUY = 0;
+	private final static int SELL = 1;
+	private final static int REMOVE = 2;
+	private final static int HOLD = 3;
 	
 	public Stock() {
 		inputDate = null;
