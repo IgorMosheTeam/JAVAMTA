@@ -3,8 +3,7 @@ package com.myorg.javacourse.model;
 import com.myorg.javacourse.*;
 
 public class Portfolio {
-	
-	private String title;
+	private String title = "Igor's Portfolio";
 	private final static int MAX_PORTFOLIO_SIZE = 5;
 	private int portfolioSize = 0;
 	Stock stocks[];
@@ -27,7 +26,7 @@ public class Portfolio {
 		String portfolioStr = new String("<h1>" + title + "</h1><br>");
 		
 		for (int i = 0; i < portfolioSize; i++) {
-			portfolioStr.concat(stocks[i].getHtmlDescription() + "<br>");
+			portfolioStr = portfolioStr.concat(stocks[i].getHtmlDescription() + "<br>");
 		}
 
 		return portfolioStr;

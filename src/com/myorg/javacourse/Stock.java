@@ -10,7 +10,6 @@ public class Stock {
 	private String symbol;
 	private float ask;
 	private float bid;
-	private String inputDate;
 	private Date outputDate;
 	private Calendar cal;
 	private int recommendation;
@@ -21,7 +20,6 @@ public class Stock {
 	private final static int HOLD = 3;
 	
 	public Stock() {
-		inputDate = null;
 		outputDate = new Date(); 
 		cal = Calendar.getInstance();
 	}
