@@ -33,7 +33,7 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 
 	<servlet>
 		<servlet-name>PortfolioServlet</servlet-name>
-		<servlet-class>com.myorg.javacourse.servlet.stock.PortfolioSevlet</servlet-class>
+		<servlet-class>com.myorg.javacourse.stock.servlet.PortfolioServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>PortfolioServlet</servlet-name>

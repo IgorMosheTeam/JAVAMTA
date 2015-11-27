@@ -23,7 +23,7 @@ public class Portfolio {
 	
 	public String getHtmlString()
 	{
-		String portfolioStr = new String("<h1>" + title + "</h1><br>");
+		String portfolioStr = new String("<h1>" + title + "</h1>");
 		
 		for (int i = 0; i < portfolioSize; i++) {
 			portfolioStr = portfolioStr.concat(stocks[i].getHtmlDescription() + "<br>");
