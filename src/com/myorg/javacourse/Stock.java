@@ -20,8 +20,15 @@ public class Stock {
 	private final static int HOLD = 3;
 	
 	public Stock() {
-		outputDate = new Date(); 
-		cal = Calendar.getInstance();
+		//outputDate = new Date(); 
+		//cal = Calendar.getInstance();
+	}
+	
+	public Stock(Stock stock) {
+		this.symbol = stock.getSymbol();
+		this.ask = stock.getAsk();
+		this.bid = stock.getBid();
+		//this.outputDate = stock.getDate();
 	}
 	
 	public String getSymbol() {
@@ -49,7 +56,7 @@ public class Stock {
 	}
 	
 
-	public Date getDate() {
+	/*public Date getDate() {
 		return outputDate;
 	}
 
@@ -67,11 +74,11 @@ public class Stock {
 	public String getFormattedDate(Date outputDate) {
 		SimpleDateFormat formatedCal = new SimpleDateFormat("MM/dd/yyyy");
 		return formatedCal.format(cal.getTime());
-	}
+	}*/
 	
 	public String getHtmlDescription()
 	{
-		String stockDetails = new String("<b>Stock symbol</b>: " + getSymbol() + ", <b>ask</b>: " + getAsk() + ", <b>bid</b>: " + getBid() + ", <b>date</b>: " + getFormattedDate(outputDate));
+		String stockDetails = new String("<b>Stock symbol</b>: " + getSymbol() + ", <b>ask</b>: " + getAsk() + ", <b>bid</b>: " + getBid() + ", <b>date</b>: ");
 
 		return stockDetails;
 	}
