@@ -1,8 +1,23 @@
-package com.myorg.javacourse;
+package com.myorg.javacourse.model;
 
 import java.util.*;
 import java.text.*;
 import java.lang.Object;
+
+/**
+* This class built to represent a stock.
+* It contains the stock's symbol(String), ask(float), bid(float) and date(Date).
+* The class has two c'tors:
+* 	1. public Stock() - creates a new stock object.
+* 	2. public Stock(Stock stock) - creates a copy of a stock object.
+* The class supports the following methods:
+* 	1. Getters and setters for all 4 members.
+* 	2. public String getFormattedDate(Date outputDate) - provides formated date to output.
+* 	3. public String getHtmlDescription() - produces a string with a description of the stock.
+* 
+* @param Stock
+* @returns Stock
+*/
 
 @SuppressWarnings("unused")
 public class Stock {
@@ -20,15 +35,18 @@ public class Stock {
 	private final static int HOLD = 3;
 	
 	public Stock() {
-		//outputDate = new Date(); 
-		//cal = Calendar.getInstance();
+		outputDate = new Date(); 
+		cal = Calendar.getInstance();
 	}
 	
 	public Stock(Stock stock) {
 		this.symbol = stock.getSymbol();
 		this.ask = stock.getAsk();
 		this.bid = stock.getBid();
-		//this.outputDate = stock.getDate();
+		this.outputDate = stock.getDate();
+		this.cal = Calendar.getInstance();
+		this.cal.setTime(outputDate);
+		
 	}
 	
 	public String getSymbol() {
@@ -55,8 +73,7 @@ public class Stock {
 		this.bid = bid;
 	}
 	
-
-	/*public Date getDate() {
+	public Date getDate() {
 		return outputDate;
 	}
 
@@ -71,15 +88,18 @@ public class Stock {
 		cal.setTime(outputDate);
 	}
 	
+	/**
+	 * @param outputDate
+	 * @returns formated date from the cal object.
+	 */
 	public String getFormattedDate(Date outputDate) {
 		SimpleDateFormat formatedCal = new SimpleDateFormat("MM/dd/yyyy");
 		return formatedCal.format(cal.getTime());
-	}*/
+	}
 	
 	public String getHtmlDescription()
 	{
-		String stockDetails = new String("<b>Stock symbol</b>: " + getSymbol() + ", <b>ask</b>: " + getAsk() + ", <b>bid</b>: " + getBid() + ", <b>date</b>: ");
-
+		String stockDetails = new String("<b>Stock symbol</b>: " + getSymbol() + ", <b>ask</b>: " + getAsk() + ", <b>bid</b>: " + getBid() + ", <b>date</b>: " + getFormattedDate(outputDate));
 		return stockDetails;
 	}
 }
