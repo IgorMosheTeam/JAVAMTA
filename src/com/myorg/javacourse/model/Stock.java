@@ -3,6 +3,7 @@ package com.myorg.javacourse.model;
 import java.util.*;
 import java.text.*;
 import java.lang.Object;
+import com.myorg.javacourse.model.Portfolio.*;
 
 /**
 * This class built to represent a stock.
@@ -21,18 +22,13 @@ import java.lang.Object;
 
 @SuppressWarnings("unused")
 public class Stock {
-	
+	private ALGO_RECOMMENDATION recommend;
 	private String symbol;
 	private float ask;
 	private float bid;
 	private Date outputDate;
 	private Calendar cal;
-	private int recommendation;
-	private int stockQuantity;
-	private final static int BUY = 0;
-	private final static int SELL = 1;
-	private final static int REMOVE = 2;
-	private final static int HOLD = 3;
+	private int stockQuantity = 0;
 	
 	public Stock() {
 		outputDate = new Date(); 
@@ -43,10 +39,10 @@ public class Stock {
 		this.symbol = stock.getSymbol();
 		this.ask = stock.getAsk();
 		this.bid = stock.getBid();
+		this.stockQuantity = stock.getStockQuantity();
 		this.outputDate = stock.getDate();
 		this.cal = Calendar.getInstance();
 		this.cal.setTime(outputDate);
-		
 	}
 	
 	public String getSymbol() {
@@ -75,6 +71,14 @@ public class Stock {
 	
 	public Date getDate() {
 		return outputDate;
+	}
+
+	public int getStockQuantity() {
+		return stockQuantity;
+	}
+
+	public void updateStockQuantity(int stockQuantity) {
+		this.stockQuantity += stockQuantity;
 	}
 
 	public void setDate(String inputDate) {		

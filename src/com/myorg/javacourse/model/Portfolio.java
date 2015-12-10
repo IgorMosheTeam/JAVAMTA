@@ -18,9 +18,12 @@ import com.myorg.javacourse.*;
 */
 
 public class Portfolio {
-	private String title = "Igor's Portfolio";
+	public enum ALGO_RECOMMENDATION {BUY, SELL, REMOVE, HOLD};	
+	private final static int ALL = -1;
 	private final static int MAX_PORTFOLIO_SIZE = 5;
+	private String title = "Igor's Portfolio";
 	private int portfolioSize = 0;
+	private float balance = 0;
 	Stock stocks[];
 	
 	public Portfolio() {
@@ -33,13 +36,25 @@ public class Portfolio {
 			this.stocks[i] = new Stock(portfolio.stocks[i]);
 		}
 		this.portfolioSize = portfolio.portfolioSize;
+		this.balance = portfolio.balance;
 	}
 	
 	public void setTitle(String string) {
 		title = string;
 	}
 	
-	public void setStock(Stock stockToAdd) {
+	public void addStock(Stock stockToAdd) {
+		if (portfolioSize == MAX_PORTFOLIO_SIZE) {
+			System.out.println("Can't add new stock, portfolio can only have " + MAX_PORTFOLIO_SIZE + " stocks.");
+			return;
+		}
+		
+		for (int i = 0; i < portfolioSize; i++) {
+			if (stocks[i].getSymbol().equals(stockToAdd.getSymbol())) {
+				return;
+			}
+		}
+		
 		stocks[portfolioSize] = stockToAdd;
 		portfolioSize++;
 	}
@@ -48,14 +63,15 @@ public class Portfolio {
 		return stocks;
 	}
 	
-	/**
-	 * Edits stock's symbol
-	 * @param stockNum
-	 * @param act
-	 * @param symbol
-	 */
-	public void editStock(int stockNum, String act, String symbol) {
-		this.stocks[stockNum - 1].setSymbol(symbol);
+	public void updateBalalnce(float money) {
+		if (balance + money >= 0) {
+			balance += money;
+			System.out.println("Balance successfuly updated");
+		}
+		
+		else {
+			System.out.println("Operation failed! You have less than " + money + " at your blance");
+		}
 	}
 	
 	/**
@@ -78,13 +94,52 @@ public class Portfolio {
 	 * Removes stock from the portfolio.
 	 * @param stockNum
 	 */
-	public void removeStock(int stockNum) {
-		for (int i = stockNum - 1; i < this.portfolioSize - 1; i++) {
-			this.stocks[i] = this.stocks[i + 1];
+	public boolean removeStock(String stockSymbol) {
+		for (int i = 0; i < portfolioSize; i++) {
+			if (stocks[i].getSymbol().equals(stockSymbol)) {
+				sellStock(stockSymbol, ALL);
+				
+				for (int j = i; j < portfolioSize - 1; j++) {
+					stocks[j] = stocks[j + 1];
+				}
+				
+				stocks[portfolioSize - 1] = null;
+				portfolioSize--;
+				System.out.println("The stock removed from the portfolio.");
+				return true;
+			}
 		}
-		this.stocks[portfolioSize - 1] = null;
-		this.portfolioSize--;
+		return false;
 	}
+	
+	public boolean sellStock(String stockSymbol, int quantity) {
+		if (quantity == 0) {
+			System.out.println("Can't sell 0 stocks!");
+			return false;
+		}
+			
+		for (int i = 0; i < portfolioSize; i++) {
+			if (stocks[i].getSymbol().equals(stockSymbol)) {
+				if (stocks[i].getStockQuantity() < quantity) {
+					System.out.println("Not enough stocks to sell!");
+					return false;
+				}
+				
+				else {
+					if (quantity == ALL) {
+						quantity = stocks[i].getStockQuantity();
+					}
+					
+					balance += quantity * stocks[i].getBid();
+					stocks[i].updateStockQuantity(-quantity);
+					System.out.println("The stock had been sold.");
+					return true;
+				}
+			}
+		}
+		System.out.println("The stock is not in the portfolio!");
+		return false;
+	}	
 	
 	/**
 	 * Produces a string with a list of stocks in the portfolio.
