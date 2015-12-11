@@ -139,7 +139,40 @@ public class Portfolio {
 		}
 		System.out.println("The stock is not in the portfolio!");
 		return false;
-	}	
+	}
+	
+	public boolean buyStock(Stock stock, int quantity) {
+		int i;
+		
+		if (quantity == ALL) {
+			quantity = (int)(balance / stock.getAsk());
+		}
+			
+		if (quantity * stock.getAsk() > balance || stock.getAsk() > balance) {
+			System.out.println("Not enough balance to complete purchase!");
+			return false;
+		}
+			
+		for (i = 0; i < portfolioSize; i++) {
+			if (stocks[i].getSymbol().equals(stock.getSymbol())) {
+				stocks[i].updateStockQuantity(quantity);
+				balance -= quantity * stock.getAsk();
+				System.out.println("Stocks successfuly purchased.");
+				return true;
+			}
+		}
+		
+		addStock(stock);
+		
+		if (i ==  MAX_PORTFOLIO_SIZE) {
+			return false;
+		}
+		
+		stocks[i].updateStockQuantity(quantity);
+		balance -= quantity * stock.getAsk();
+		System.out.println("Stocks successfuly purchased.");
+		return true;
+	}
 	
 	/**
 	 * Produces a string with a list of stocks in the portfolio.
