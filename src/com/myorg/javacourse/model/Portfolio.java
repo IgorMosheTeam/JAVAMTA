@@ -42,25 +42,13 @@ public class Portfolio {
 	public void setTitle(String string) {
 		title = string;
 	}
-	
-	public void addStock(Stock stockToAdd) {
-		if (portfolioSize == MAX_PORTFOLIO_SIZE) {
-			System.out.println("Can't add new stock, portfolio can only have " + MAX_PORTFOLIO_SIZE + " stocks.");
-			return;
-		}
-		
-		for (int i = 0; i < portfolioSize; i++) {
-			if (stocks[i].getSymbol().equals(stockToAdd.getSymbol())) {
-				return;
-			}
-		}
-		
-		stocks[portfolioSize] = stockToAdd;
-		portfolioSize++;
-	}
 
 	public Stock[] getStocks() {
 		return stocks;
+	}
+	
+	public float getBalance() {
+		return balance;
 	}
 	
 	public void updateBalalnce(float money) {
@@ -112,9 +100,25 @@ public class Portfolio {
 		return false;
 	}
 	
+	public void addStock(Stock stockToAdd) {
+		if (portfolioSize == MAX_PORTFOLIO_SIZE) {
+			System.out.println("Can't add new stock, portfolio can only have " + MAX_PORTFOLIO_SIZE + " stocks.");
+			return;
+		}
+		
+		for (int i = 0; i < portfolioSize; i++) {
+			if (stocks[i].getSymbol().equals(stockToAdd.getSymbol())) {
+				return;
+			}
+		}
+		
+		stocks[portfolioSize] = stockToAdd;
+		portfolioSize++;
+	}
+	
 	public boolean sellStock(String stockSymbol, int quantity) {
-		if (quantity == 0) {
-			System.out.println("Can't sell 0 stocks!");
+		if (quantity <= 0 && quantity != ALL) {
+			System.out.println("Invalid quatity!");
 			return false;
 		}
 			
@@ -144,6 +148,11 @@ public class Portfolio {
 	public boolean buyStock(Stock stock, int quantity) {
 		int i;
 		
+		if (quantity <= 0) {
+			System.out.println("Invalid quantity!");
+			return false;
+		}
+
 		if (quantity == ALL) {
 			quantity = (int)(balance / stock.getAsk());
 		}
@@ -174,6 +183,18 @@ public class Portfolio {
 		return true;
 	}
 	
+	public float getStocksValue() {
+		int value = 0;
+		for (int i = 0; i < portfolioSize; i++) {
+			value += stocks[i].getStockQuantity() * stocks[i].getBid();
+		}
+		return value;
+	}
+	
+	public float getTotalValue() {
+		return getStocksValue() + getBalance();
+	}
+	
 	/**
 	 * Produces a string with a list of stocks in the portfolio.
 	 * @return String
@@ -181,6 +202,7 @@ public class Portfolio {
 	public String getHtmlString()
 	{
 		String portfolioStr = new String("<h1>" + title + "</h1>");
+		portfolioStr = portfolioStr.concat("<b>Total portfolio value</b>: " + getTotalValue() + "$, <b>total stocks value</b>: " + getStocksValue() + "$, <b>balance</b>: " + getBalance() + "$.<br>");
 		for (int i = 0; i < portfolioSize; i++) {
 			portfolioStr = portfolioStr.concat(stocks[i].getHtmlDescription() + "<br>");
 		}
