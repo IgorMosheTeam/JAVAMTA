@@ -7,12 +7,12 @@ import com.myorg.javacourse.model.Portfolio.*;
 
 /**
 * This class built to represent a stock.
-* It contains the stock's symbol(String), ask(float), bid(float) and date(Date).
+* It contains the stock's symbol(String), ask(float), bid(float), date(Date) and quantity(int).
 * The class has two c'tors:
 * 	1. public Stock() - creates a new stock object.
 * 	2. public Stock(Stock stock) - creates a copy of a stock object.
 * The class supports the following methods:
-* 	1. Getters and setters for all 4 members.
+* 	1. Getters and setters for all members.
 * 	2. public String getFormattedDate(Date outputDate) - provides formated date to output.
 * 	3. public String getHtmlDescription() - produces a string with a description of the stock.
 * 
@@ -103,7 +103,7 @@ public class Stock {
 	
 	public String getHtmlDescription()
 	{
-		String stockDetails = new String("<b>Stock symbol</b>: " + getSymbol() + ", <b>ask</b>: " + getAsk() + ", <b>bid</b>: " + getBid() + ",<b>quantity</b>: " + getStockQuantity() + ", <b>date</b>: " + getFormattedDate(outputDate));
+		String stockDetails = new String("<b>Stock symbol</b>: " + getSymbol() + ", <b>ask</b>: " + getAsk() + ", <b>bid</b>: " + getBid() + ", <b>quantity</b>: " + getStockQuantity() + ", <b>date</b>: " + getFormattedDate(outputDate));
 		return stockDetails;
 	}
 }
