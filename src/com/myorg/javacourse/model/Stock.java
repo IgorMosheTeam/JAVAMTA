@@ -23,22 +23,23 @@ import com.myorg.javacourse.model.Portfolio.*;
 @SuppressWarnings("unused")
 public class Stock {
 	private ALGO_RECOMMENDATION recommend;
+	private Date outputDate;
+	private Calendar cal;
 	private String symbol;
 	private float ask;
 	private float bid;
-	private Date outputDate;
-	private Calendar cal;
 	private int stockQuantity = 0;
 	
-	public Stock() {
-		outputDate = new Date(); 
-		cal = Calendar.getInstance();
+	public Stock(String newSymbol, float newAsk, float newBid) {
+		this.symbol = newSymbol;
+		this.ask = newAsk;
+		this.bid = newBid;
+		this.outputDate = new Date(); 
+		this.cal = Calendar.getInstance();
 	}
 	
 	public Stock(Stock stock) {
-		this.symbol = stock.getSymbol();
-		this.ask = stock.getAsk();
-		this.bid = stock.getBid();
+		this(stock.getSymbol(), stock.getAsk(),stock.getBid());
 		this.stockQuantity = stock.getStockQuantity();
 		this.outputDate = stock.getDate();
 		this.cal = Calendar.getInstance();

@@ -30,7 +30,7 @@ public class Portfolio {
 	private String title = "Igor's Portfolio";
 	private int portfolioSize = 0;
 	private float balance = 0;
-	Stock stocks[];
+	private Stock stocks[];
 	
 	public Portfolio() {
 		stocks = new Stock[MAX_PORTFOLIO_SIZE];
@@ -45,10 +45,14 @@ public class Portfolio {
 		this.balance = portfolio.balance;
 	}
 	
+	public String getTitle() {
+		return title;
+	}
+	
 	public void setTitle(String string) {
 		title = string;
 	}
-
+	
 	public Stock[] getStocks() {
 		return stocks;
 	}
@@ -119,11 +123,11 @@ public class Portfolio {
 		}
 		
 		else if (act == "bid") {
-			stock.setAsk(num);	
+			stock.setBid(num);	
 		}
 		
 		else {
-			stock.setBid(num);
+			stock.setAsk(num);
 		}
 	}
 	
