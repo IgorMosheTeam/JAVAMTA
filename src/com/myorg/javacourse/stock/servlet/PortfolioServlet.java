@@ -12,7 +12,7 @@ public class PortfolioServlet extends HttpServlet {
 		resp.setContentType("text/html");
 		
 		PortfolioManager portfolioManager = new PortfolioManager();
-		Portfolio portfolio = portfolioManager.getPortfolio();
+		Portfolio portfolio = (Portfolio) portfolioManager.getPortfolio();
 		resp.getWriter().println(portfolio.getHtmlString());
 	}
 }

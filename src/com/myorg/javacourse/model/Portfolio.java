@@ -1,5 +1,8 @@
 package com.myorg.javacourse.model;
 
+import org.algo.model.PortfolioInterface;
+import org.algo.model.StockInterface;
+
 import com.myorg.javacourse.*;
 
 /**
@@ -23,28 +26,32 @@ import com.myorg.javacourse.*;
 * @returns Portfolio
 */
 
-public class Portfolio {
+public class Portfolio implements PortfolioInterface {
 	public enum ALGO_RECOMMENDATION {BUY, SELL, REMOVE, HOLD};	
 	private final static int ALL = -1;
 	private final static int MAX_PORTFOLIO_SIZE = 5;
 	private String title = "Igor's Portfolio";
 	private int portfolioSize = 0;
 	private float balance = 0;
-	private Stock stocks[];
+	private StockInterface stocks[];
 	
 	public Portfolio() {
 		stocks = new Stock[MAX_PORTFOLIO_SIZE];
 	}
 	
+	public Portfolio(Stock[] stockArray) {
+		this.stocks = stockArray;
+	}
+	
 	public Portfolio(Portfolio portfolio) {
 		stocks = new Stock[MAX_PORTFOLIO_SIZE];
 		for (int i = 0; i < portfolio.portfolioSize; i++) {
-			this.stocks[i] = new Stock(portfolio.stocks[i]);
+			this.stocks[i] = new Stock((Stock) portfolio.stocks[i]);
 		}
 		this.portfolioSize = portfolio.portfolioSize;
 		this.balance = portfolio.balance;
 	}
-	
+
 	public String getTitle() {
 		return title;
 	}
@@ -53,15 +60,23 @@ public class Portfolio {
 		title = string;
 	}
 	
-	public Stock[] getStocks() {
-		return stocks;
+	public static int getMaxSize() {
+		return MAX_PORTFOLIO_SIZE;
 	}
 	
+	public StockInterface[] getStocks() {
+		return (StockInterface[]) stocks;
+	}
+	
+	public int getPortfolioSize() {
+		return portfolioSize;
+	}
+
 	public float getBalance() {
 		return balance;
 	}
 	
-	public void updateBalalnce(float money) {
+	public void updateBalance(float money) {
 		if (balance + money >= 0) {
 			balance += money;
 			System.out.println("Balance successfuly updated");
@@ -112,7 +127,7 @@ public class Portfolio {
 		Stock stock = null;
 		for (int i = 0; i < portfolioSize; i++) {
 			if (stocks[i].getSymbol().equals(stockSymbol)) {
-				stock = stocks[i];
+				stock = (Stock) stocks[i];
 				break;
 			}
 		}
@@ -156,7 +171,7 @@ public class Portfolio {
 			
 		for (i = 0; i < portfolioSize; i++) {
 			if (stocks[i].getSymbol().equals(stock.getSymbol())) {
-				stocks[i].updateStockQuantity(quantity);
+				((Stock) stocks[i]).updateStockQuantity(quantity);
 				balance -= quantity * stock.getAsk();
 				System.out.println("Stocks successfuly purchased.");
 				return true;
@@ -169,7 +184,7 @@ public class Portfolio {
 			return false;
 		}
 		
-		stocks[i].updateStockQuantity(quantity);
+		((Stock) stocks[i]).updateStockQuantity(quantity);
 		balance -= quantity * stock.getAsk();
 		System.out.println("Stocks successfuly purchased.");
 		return true;
@@ -212,18 +227,18 @@ public class Portfolio {
 			
 		for (int i = 0; i < portfolioSize; i++) {
 			if (stocks[i].getSymbol().equals(stockSymbol)) {
-				if (stocks[i].getStockQuantity() < quantity) {
+				if (((Stock) stocks[i]).getStockQuantity() < quantity) {
 					System.out.println("Not enough stocks to sell!");
 					return false;
 				}
 				
 				else {
 					if (quantity == ALL) {
-						quantity = stocks[i].getStockQuantity();
+						quantity = ((Stock) stocks[i]).getStockQuantity();
 					}
 					
 					balance += quantity * stocks[i].getBid();
-					stocks[i].updateStockQuantity(-quantity);
+					((Stock) stocks[i]).updateStockQuantity(-quantity);
 					System.out.println("The stock had been sold.");
 					return true;
 				}
@@ -239,7 +254,7 @@ public class Portfolio {
 	public float getStocksValue() {
 		int value = 0;
 		for (int i = 0; i < portfolioSize; i++) {
-			value += stocks[i].getStockQuantity() * stocks[i].getBid();
+			value += ((Stock) stocks[i]).getStockQuantity() * stocks[i].getBid();
 		}
 		return value;
 	}
@@ -260,7 +275,7 @@ public class Portfolio {
 		String portfolioStr = new String("<h1>" + title + "</h1>");
 		portfolioStr = portfolioStr.concat("<b>Total portfolio value</b>: " + getTotalValue() + "$, <b>total stocks value</b>: " + getStocksValue() + "$, <b>balance</b>: " + getBalance() + "$.<br><br><b><u>Stocks in the portfolio:</u></b><br>");
 		for (int i = 0; i < portfolioSize; i++) {
-			portfolioStr = portfolioStr.concat(stocks[i].getHtmlDescription() + "<br>");
+			portfolioStr = portfolioStr.concat(((Stock) stocks[i]).getHtmlDescription() + "<br>");
 		}
 		return portfolioStr;
 	}	

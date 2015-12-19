@@ -3,6 +3,8 @@ package com.myorg.javacourse.model;
 import java.util.*;
 import java.text.*;
 import java.lang.Object;
+
+import org.algo.model.StockInterface;
 import com.myorg.javacourse.model.Portfolio.*;
 
 /**
@@ -21,7 +23,7 @@ import com.myorg.javacourse.model.Portfolio.*;
 */
 
 @SuppressWarnings("unused")
-public class Stock {
+public class Stock implements StockInterface{
 	private ALGO_RECOMMENDATION recommend;
 	private Date outputDate;
 	private Calendar cal;
