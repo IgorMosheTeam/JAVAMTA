@@ -2,7 +2,6 @@ package com.myorg.javacourse.model;
 
 import org.algo.model.PortfolioInterface;
 import org.algo.model.StockInterface;
-
 import com.myorg.javacourse.*;
 
 /**
@@ -266,6 +265,18 @@ public class Portfolio implements PortfolioInterface {
 		return getStocksValue() + getBalance();
 	}
 	
+	public StockInterface findStock(String symbol) {
+		Stock stock= new Stock();
+		for (int i = 0; i < portfolioSize; i++) {
+			if (stocks[i].getSymbol().equals(symbol)) {
+				return stocks[i];
+			}
+		}
+		
+		System.out.println("Stock Not Exists: " + symbol);
+		return null;
+	}
+	
 	/**
 	 * Produces a string with portfolio total value, stocks total value and blance, and a list of all the stocks in the portfolio.
 	 * @return String
@@ -278,5 +289,5 @@ public class Portfolio implements PortfolioInterface {
 			portfolioStr = portfolioStr.concat(((Stock) stocks[i]).getHtmlDescription() + "<br>");
 		}
 		return portfolioStr;
-	}	
+	}
 }
