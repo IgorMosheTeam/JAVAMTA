@@ -161,7 +161,7 @@ public class PortfolioManager implements PortfolioManagerInterface{
 		newStock.setSymbol(stockDto.getSymbol());
 		newStock.setAsk(stockDto.getAsk());
 		newStock.setBid(stockDto.getBid());
-		newStock.setDate(String.valueOf(stockDto.getDate().getTime()));
+		newStock.setDate(stockDto.getDate());
 		newStock.updateStockQuantity(stockDto.getQuantity());
 		if(stockDto.getRecommendation() != null) newStock.setRecommendation(com.myorg.javacourse.model.Stock.ALGO_RECOMMENDATION.valueOf(stockDto.getRecommendation()));
 

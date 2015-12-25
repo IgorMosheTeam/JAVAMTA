@@ -87,23 +87,21 @@ public class Stock implements StockInterface{
 		return outputDate;
 	}
 	
-	/**
-	 * @param outputDate
+	/** * @param outputDate
 	 * @returns formated date from the cal object.
 	 */
-	public String getFormattedDate(Date outputDate) {
-		SimpleDateFormat formatedCal = new SimpleDateFormat("MM/dd/yyyy");
-		return formatedCal.format(cal.getTime());
-	}
+	//public String getFormattedDate(Date outputDate) {
+	//	SimpleDateFormat formatedCal = new SimpleDateFormat("MM/dd/yyyy");
+	//	return formatedCal.format(cal.getTime());
+	//}
 
-	public void setDate(String inputDate) {		
-		SimpleDateFormat formatedDate = new SimpleDateFormat("MM/dd/yyyy");
-		try {
-		    	this.outputDate = formatedDate.parse(inputDate);
-		    } catch (ParseException e) {
-		      e.printStackTrace();
-		    }
-		cal.setTime(outputDate);
+	public void setDate(Date inputDate) {		
+		Date now= new Date();
+		this.outputDate = inputDate;		
+		Calendar c = Calendar.getInstance();
+		c.setTime(outputDate);
+		now=c.getTime();
+		this.outputDate = now;
 	}
 	
 	public int getStockQuantity() {
@@ -124,7 +122,8 @@ public class Stock implements StockInterface{
 	
 	public String getHtmlDescription()
 	{
-		String stockDetails = new String("<b>Stock symbol</b>: " + getSymbol() + ", <b>ask</b>: " + getAsk() + ", <b>bid</b>: " + getBid() + ", <b>quantity</b>: " + getStockQuantity() + ", <b>date</b>: " + getFormattedDate(outputDate));
+		SimpleDateFormat formatDate = new SimpleDateFormat("MM-dd-yyyy"); 
+		String stockDetails = new String("<b>Stock symbol</b>: " + getSymbol() + ", <b>ask</b>: " + getAsk() + ", <b>bid</b>: " + getBid() + ", <b>quantity</b>: " + getStockQuantity() + ", <b>date</b>: " + formatDate.format(getDate()));
 		return stockDetails;
 	}
 }

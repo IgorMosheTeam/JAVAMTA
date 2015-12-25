@@ -78,7 +78,7 @@ public class Portfolio implements PortfolioInterface {
 	public void updateBalance(float money) {
 		if (balance + money >= 0) {
 			balance += money;
-			System.out.println("Balance successfuly updated");
+			System.out.println("Balance successfuly updated with " + money);
 		}
 		
 		else {
@@ -171,7 +171,7 @@ public class Portfolio implements PortfolioInterface {
 		for (i = 0; i < portfolioSize; i++) {
 			if (stocks[i].getSymbol().equals(stock.getSymbol())) {
 				((Stock) stocks[i]).updateStockQuantity(quantity);
-				balance -= quantity * stock.getAsk();
+				updateBalance(-quantity * stock.getAsk());
 				System.out.println("Stocks successfuly purchased.");
 				return true;
 			}
@@ -184,7 +184,7 @@ public class Portfolio implements PortfolioInterface {
 		}
 		
 		((Stock) stocks[i]).updateStockQuantity(quantity);
-		balance -= quantity * stock.getAsk();
+		updateBalance(-quantity * stock.getAsk());
 		System.out.println("Stocks successfuly purchased.");
 		return true;
 	}
@@ -236,7 +236,7 @@ public class Portfolio implements PortfolioInterface {
 						quantity = ((Stock) stocks[i]).getStockQuantity();
 					}
 					
-					balance += quantity * stocks[i].getBid();
+					updateBalance(quantity * stocks[i].getBid());
 					((Stock) stocks[i]).updateStockQuantity(-quantity);
 					System.out.println("The stock had been sold.");
 					return true;
@@ -266,7 +266,6 @@ public class Portfolio implements PortfolioInterface {
 	}
 	
 	public StockInterface findStock(String symbol) {
-		Stock stock= new Stock();
 		for (int i = 0; i < portfolioSize; i++) {
 			if (stocks[i].getSymbol().equals(symbol)) {
 				return stocks[i];
