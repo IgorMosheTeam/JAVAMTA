@@ -26,7 +26,6 @@ import com.myorg.javacourse.*;
 */
 
 public class Portfolio implements PortfolioInterface {
-	public enum ALGO_RECOMMENDATION {BUY, SELL, REMOVE, HOLD};	
 	private final static int ALL = -1;
 	private final static int MAX_PORTFOLIO_SIZE = 5;
 	private String title = "Igor's Portfolio";
@@ -39,7 +38,11 @@ public class Portfolio implements PortfolioInterface {
 	}
 	
 	public Portfolio(Stock[] stockArray) {
-		this.stocks = stockArray;
+		this.stocks = new Stock[MAX_PORTFOLIO_SIZE];
+		this.portfolioSize = stockArray.length;
+		for (int i = 0; i < portfolioSize; i++) {
+			this.stocks[i] = stockArray[i];
+		}
 	}
 	
 	public Portfolio(Portfolio portfolio) {
@@ -154,7 +157,7 @@ public class Portfolio implements PortfolioInterface {
 	public boolean buyStock(Stock stock, int quantity) {
 		int i;
 		
-		if (quantity <= 0) {
+		if (quantity <= 0 && quantity != ALL) {
 			System.out.println("Invalid quantity!");
 			return false;
 		}

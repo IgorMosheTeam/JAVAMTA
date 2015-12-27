@@ -23,8 +23,6 @@ public class PortfolioManager implements PortfolioManagerInterface{
 
 	private final static int ALL = -1;
 	public enum ALGO_RECOMMENDATION {BUY, SELL, REMOVE, HOLD};
-	Portfolio portfolio;
-
 	private DatastoreService datastoreService = ServiceManager.datastoreService();
 	
 	public PortfolioInterface getPortfolio() {
@@ -130,9 +128,9 @@ public class PortfolioManager implements PortfolioManagerInterface{
 			Stock stock = fromDto(stockDto);
 
 			//first thing, add it to portfolio.
-			portfolio.addStock(stock);   
+			//portfolio.addStock(stock, 0);   
 			//or:
-			//portfolio.addStock(stock);   
+			portfolio.addStock(stock);   
 
 			//second thing, save the new stock to the database.
 			datastoreService.saveStock(toDto(portfolio.findStock(symbol)));
@@ -267,18 +265,15 @@ public class PortfolioManager implements PortfolioManagerInterface{
 	@Override
 	public void buyStock(String symbol, int quantity) throws PortfolioException {
 		Portfolio portfolio = (Portfolio) getPortfolio();
+		Stock stock;
 		
-		Stock stock = (Stock) portfolio.findStock(symbol);
-		if(stock == null) {
-			try {
-				stock = fromDto(ServiceManager.marketService().getStock(symbol));
-			} catch (SymbolNotFoundInNasdaq e) {
-				e.printStackTrace();
-			}				
-		}
-		
-		portfolio.buyStock(stock, quantity);
-		flush(portfolio);
+		try {
+			stock = fromDto(ServiceManager.marketService().getStock(symbol));
+			portfolio.buyStock(stock, quantity);
+			flush(portfolio);
+		} catch (SymbolNotFoundInNasdaq e) {
+			e.printStackTrace();
+		}		
 	}
 
 	@Override

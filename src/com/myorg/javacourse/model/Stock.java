@@ -14,8 +14,7 @@ import com.myorg.javacourse.model.Portfolio.*;
 * 	2. public Stock(Stock stock) - creates a copy of a stock object.
 * The class supports the following methods:
 * 	1. Getters and setters for all members.
-* 	2. public String getFormattedDate(Date outputDate) - provides formated date to output.
-* 	3. public String getHtmlDescription() - produces a string with a description of the stock.
+* 	2. public String getHtmlDescription() - produces a string with a description of the stock.
 * 
 * @param Stock
 * @returns Stock
@@ -87,20 +86,11 @@ public class Stock implements StockInterface{
 		return outputDate;
 	}
 	
-	/** * @param outputDate
-	 * @returns formated date from the cal object.
-	 */
-	//public String getFormattedDate(Date outputDate) {
-	//	SimpleDateFormat formatedCal = new SimpleDateFormat("MM/dd/yyyy");
-	//	return formatedCal.format(cal.getTime());
-	//}
-
 	public void setDate(Date inputDate) {		
-		Date now= new Date();
+		Date now = new Date();
 		this.outputDate = inputDate;		
-		Calendar c = Calendar.getInstance();
-		c.setTime(outputDate);
-		now=c.getTime();
+		this.cal.setTime(outputDate);
+		now = this.cal.getTime();
 		this.outputDate = now;
 	}
 	
