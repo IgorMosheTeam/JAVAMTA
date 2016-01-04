@@ -5,6 +5,7 @@ import java.text.*;
 import java.lang.Object;
 import org.algo.model.StockInterface;
 import com.myorg.javacourse.model.Portfolio.*;
+import com.myorg.javacourse.service.PortfolioManager.ALGO_RECOMMENDATION;
 
 /**
 * This class built to represent a stock.
@@ -23,10 +24,7 @@ import com.myorg.javacourse.model.Portfolio.*;
 @SuppressWarnings("unused")
 public class Stock implements StockInterface{
 	
-	public enum ALGO_RECOMMENDATION{
-		BUY, SELL, REMOVE, HOLD
-	}
-	private ALGO_RECOMMENDATION recommend;
+	private ALGO_RECOMMENDATION recommendation;
 	private Date outputDate;
 	private Calendar cal;
 	private String symbol;
@@ -38,7 +36,7 @@ public class Stock implements StockInterface{
 		this.symbol = new String();
 		this.outputDate = new Date(); 
 		this.cal = Calendar.getInstance();
-		this.recommend = ALGO_RECOMMENDATION.HOLD;
+		this.recommendation = ALGO_RECOMMENDATION.HOLD;
 	}
 	
 	public Stock(String newSymbol, float newAsk, float newBid) {
@@ -54,8 +52,8 @@ public class Stock implements StockInterface{
 		this.stockQuantity = stock.getStockQuantity();
 		this.outputDate = stock.getDate();
 		this.cal = Calendar.getInstance();
-		this.cal.setTime(outputDate);
-		this.recommend = stock.recommend;
+		this.cal.setTime(this.outputDate);
+		this.recommendation = stock.getRecommendation();
 	}
 	
 	public String getSymbol() {
@@ -102,12 +100,12 @@ public class Stock implements StockInterface{
 		this.stockQuantity += stockQuantity;
 	}
 	
-	public Enum<ALGO_RECOMMENDATION> getRecommendation() {
-		return recommend;
+	public ALGO_RECOMMENDATION getRecommendation() {
+		return recommendation;
 	}
 	
 	public void setRecommendation(ALGO_RECOMMENDATION recommendation) {
-		this.recommend = recommendation;
+		this.recommendation = recommendation;
 	}
 	
 	public String getHtmlDescription()

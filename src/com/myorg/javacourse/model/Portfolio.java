@@ -149,7 +149,7 @@ public class Portfolio implements PortfolioInterface {
 	}
 	
 	/**
-	 * Buys an ammount of the given stock. Returns boolean value to indicate success or failure of the operation.
+	 * d an ammount of the given stock. Returns boolean value to indicate success or failure of the operation.
 	 * -1 can be used to buy to buy as many stocks as possible.  
 	 * @param stock
 	 * @param quantity

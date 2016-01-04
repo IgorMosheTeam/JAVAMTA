@@ -161,7 +161,7 @@ public class PortfolioManager implements PortfolioManagerInterface{
 		newStock.setBid(stockDto.getBid());
 		newStock.setDate(stockDto.getDate());
 		newStock.updateStockQuantity(stockDto.getQuantity());
-		if(stockDto.getRecommendation() != null) newStock.setRecommendation(com.myorg.javacourse.model.Stock.ALGO_RECOMMENDATION.valueOf(stockDto.getRecommendation()));
+		if(stockDto.getRecommendation() != null) newStock.setRecommendation(ALGO_RECOMMENDATION.valueOf(stockDto.getRecommendation()));
 
 		return newStock;
 	}
@@ -177,10 +177,6 @@ public class PortfolioManager implements PortfolioManagerInterface{
 		}
 
 		Stock stock = (Stock) inStock;
-		
-		if(stock.getRecommendation() != null) {
-			stock.setRecommendation(com.myorg.javacourse.model.Stock.ALGO_RECOMMENDATION.HOLD);
-		}
 		
 		return new StockDto(stock.getSymbol(), stock.getAsk(), stock.getBid(), 
 				stock.getDate(), stock.getStockQuantity(), stock.getRecommendation().name());
