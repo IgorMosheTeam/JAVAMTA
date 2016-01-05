@@ -10,6 +10,7 @@ import com.myorg.javacourse.*;
 * The class has two c'tors:
 * 	1. public Portfolio() - creates a new portfolio object.
 * 	2. public Portfolio(Portfolio portfolio) - creates a copy of a portfolio object.
+* 	3. public Portfolio(Stock[] stockArray) - creates a new instance of a portfolio object with a copy of stocks array.
 * The class supports the following methods:
 * 	1. Getters and setters for title and balance. 
 * 	2. public void addStock(Stock stockToAdd) - adds a stock to portfolio.
@@ -17,10 +18,10 @@ import com.myorg.javacourse.*;
 * 	4. public boolean buyStock(Stock stock, int quantity) - buys an ammount of the given stock.
 * 	5. public boolean removeStock(String stockSymbol) - sells all the stock and removes it from the portfolio.
 * 	6. public boolean sellStock(String stockSymbol, int quantity) - Sells an ammount of the given stock;
-* 	3. public String getHtmlString() - produces a string with a list of stocks in the portfolio.
-* 	4. public float getStocksValue() - returns the total value of all the stocks in the portfolio.
-* 	5. public float getTotalValue() - returns the total value of the portfolio (stocks + balance).
-* 	6.
+* 	7. public String getHtmlString() - produces a string with a list of stocks in the portfolio.
+* 	8. public float getStocksValue() - returns the total value of all the stocks in the portfolio.
+* 	9. public float getTotalValue() - returns the total value of the portfolio (stocks + balance).
+* 	10.public StockInterface findStock(String symbol) - finds a stock objectin portfolio based on symbol and returns it
 * @param Portfolio
 * @returns Portfolio
 */
@@ -268,6 +269,11 @@ public class Portfolio implements PortfolioInterface {
 		return getStocksValue() + getBalance();
 	}
 	
+	/**
+	 * Dinds a stock objectin portfolio based on symbol and returns it
+	 * @param symbol
+	 * @return Stock
+	 */
 	public StockInterface findStock(String symbol) {
 		for (int i = 0; i < portfolioSize; i++) {
 			if (stocks[i].getSymbol().equals(symbol)) {

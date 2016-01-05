@@ -10,9 +10,10 @@ import com.myorg.javacourse.service.PortfolioManager.ALGO_RECOMMENDATION;
 /**
 * This class built to represent a stock.
 * It contains the stock's symbol(String), ask(float), bid(float), date(Date) and quantity(int).
-* The class has two c'tors:
+* The class has 3 c'tors:
 * 	1. public Stock() - creates a new stock object.
 * 	2. public Stock(Stock stock) - creates a copy of a stock object.
+* 	3. public Stock(String newSymbol, float newAsk, float newBid) - creates a copy of a stock object' using only specific members
 * The class supports the following methods:
 * 	1. Getters and setters for all members.
 * 	2. public String getHtmlDescription() - produces a string with a description of the stock.

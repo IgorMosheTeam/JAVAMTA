@@ -244,6 +244,9 @@ public class PortfolioManager implements PortfolioManagerInterface{
 		return ret;
 	}
 
+	/**
+	 * Sets the title of the portfolio
+	 */
 	@Override
 	public void setTitle(String title) {
 		Portfolio portfolio = (Portfolio) getPortfolio();
@@ -251,6 +254,9 @@ public class PortfolioManager implements PortfolioManagerInterface{
 		flush(portfolio);
 	}
 
+	/**
+	 * Updates the money balnace in the portfolio
+	 */
 	@Override
 	public void updateBalance(float value) throws PortfolioException {
 		Portfolio portfolio = (Portfolio) getPortfolio();
@@ -258,20 +264,18 @@ public class PortfolioManager implements PortfolioManagerInterface{
 		flush(portfolio);
 	}
 
+	/**
+	 * Buys more stocks of one already exists
+	 */
 	@Override
 	public void buyStock(String symbol, int quantity) throws PortfolioException {
-		Portfolio portfolio = (Portfolio) getPortfolio();
-		Stock stock;
-		
-		try {
-			stock = fromDto(ServiceManager.marketService().getStock(symbol));
-			portfolio.buyStock(stock, quantity);
-			flush(portfolio);
-		} catch (SymbolNotFoundInNasdaq e) {
-			e.printStackTrace();
-		}		
+		Portfolio portfolio =(Portfolio) getPortfolio();
+		portfolio.buyStock((Stock)portfolio.findStock(symbol), quantity);
+		flush(portfolio);		
 	}
-
+	/**
+	 * Sells stocks
+	 */
 	@Override
 	public void sellStock(String symbol, int quantity) throws PortfolioException {
 		Portfolio portfolio = (Portfolio) getPortfolio();
@@ -279,6 +283,9 @@ public class PortfolioManager implements PortfolioManagerInterface{
 		flush(portfolio);
 	}
 
+	/**
+	 * Removes stock from portfolio
+	 */
 	@Override
 	public void removeStock(String symbol) throws PortfolioException {
 		Portfolio portfolio = (Portfolio) getPortfolio();
