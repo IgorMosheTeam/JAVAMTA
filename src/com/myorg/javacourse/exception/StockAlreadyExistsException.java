@@ -7,6 +7,6 @@ public class StockAlreadyExistsException extends PortfolioException {
 	private static final long serialVersionUID = 1L;
 	
 	public StockAlreadyExistsException (){
-		super("The portfolio is full!");
+		super("Stock already exists in portfolio!");
 	}
 }

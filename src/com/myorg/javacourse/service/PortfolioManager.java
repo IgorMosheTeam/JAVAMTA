@@ -125,7 +125,7 @@ public class PortfolioManager implements PortfolioManagerInterface{
 	 * @throws PortfolioException 
 	 */
 	@Override
-	public void addStock(String symbol) throws PortfolioException {
+	public void addStock(String symbol) throws PortfolioFullException, StockAlreadyExistsException, StockNotExistsException {
 		Portfolio portfolio = (Portfolio) getPortfolio();
 
 		try {
@@ -271,7 +271,7 @@ public class PortfolioManager implements PortfolioManagerInterface{
 	 * Updates the money balnace in the portfolio
 	 */
 	@Override
-	public void updateBalance(float value) throws PortfolioException {
+	public void updateBalance(float value) throws BalanceException {
 		Portfolio portfolio = (Portfolio) getPortfolio();
 		try {
 			portfolio.updateBalance(value);		

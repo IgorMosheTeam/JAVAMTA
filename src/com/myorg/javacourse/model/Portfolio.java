@@ -126,7 +126,7 @@ public class Portfolio implements PortfolioInterface {
 	 * @throws PortfolioFullException 
 	 * @throws StockAlreadyExistsException 
 	 */
-	public void buyStock(Stock stock, int quantity) throws PortfolioException {
+	public void buyStock(Stock stock, int quantity) throws PortfolioFullException, StockAlreadyExistsException, IllegalQuantityException, BalanceException {
 		int i;
 
 		if (quantity <= 0 && quantity != ALL) {
@@ -165,7 +165,7 @@ public class Portfolio implements PortfolioInterface {
 	 * @param stockSymbol
 	 * @throws PortfolioException 
 	 */
-	public void removeStock(String stockSymbol) throws PortfolioException {
+	public void removeStock(String stockSymbol) throws IllegalQuantityException, NotEnoughStocksException, BalanceException, StockNotExistsException {
 		for (int i = 0; i < portfolioSize; i++) {
 			if (stocks[i].getSymbol().equals(stockSymbol)) {
 				try {
